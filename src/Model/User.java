@@ -1,24 +1,22 @@
 package Model;
 
 public abstract class User {
-    private String title;
-    private Genrer genrer;
+    private String typeUser;
     private boolean harReklamer;
     private boolean kanDownloade;
 
-    public User(String title, Genrer genrer, boolean harReklamer, boolean kanDownloade) {
-        this.title = title;
-        this.genrer = genrer;
+    public User(String typeUser, boolean harReklamer, boolean kanDownloade) {
+        this.typeUser = typeUser;
         this.harReklamer = harReklamer;
         this.kanDownloade = kanDownloade;
     }
 
-    public String getTitle(){
-        return title;
+    public String gettypeUser(){
+        return typeUser;
 
     }
-    public void setTitle(String title){
-        this.title = title;
+    public void settypeUser(String typeUser){
+        this.typeUser = typeUser;
 
     }
 
@@ -39,5 +37,5 @@ public abstract class User {
     }
 
 
-    
 }
+

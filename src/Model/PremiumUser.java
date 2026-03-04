@@ -1,9 +1,9 @@
 package Model;
 
 public class PremiumUser extends User {
-    public PremiumUser(String title, Genrer genrer, boolean harReklamer, boolean kanDownloade) {
+    public PremiumUser(String typeUser, boolean harReklamer, boolean kanDownloade) {
 
-        super(title, genrer, harReklamer, kanDownloade);
+        super(typeUser, harReklamer, kanDownloade);
 
     }
 }

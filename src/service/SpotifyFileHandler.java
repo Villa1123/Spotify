@@ -1,6 +1,8 @@
 package service;
 
-import Lesson15.Recipes.model.*;
+import Model.SongHandler.Genre;
+import Model.SongHandler.Song;
+import Model.SongHandler.PlayList;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,9 +15,9 @@ import java.util.ArrayList;
 
 public class SpotifyFileHandler {
 
-    private static final String FILE_PATH = "src\\Lesson15\\Recipes\\recipes.txt";
+    private static final String FILE_PATH = "songs.txt";
 
-    public ArrayList<String> getRecipeNames() {
+    public ArrayList<String> getSongNames() {
 
         ArrayList<String> recipes = new ArrayList<>();
 
@@ -25,7 +27,7 @@ public class SpotifyFileHandler {
 
             while ((line = reader.readLine()) != null) {
 
-                if (!line.contains(",")) {
+                if (!line.contains(",") && !line.isEmpty()) { //den her linje har chat rettet
                     recipes.add(line);
                 }
             }
@@ -37,9 +39,9 @@ public class SpotifyFileHandler {
         return recipes;
     }
 
-    public ArrayList<Ingredient> loadRecipe(String recipeName) {
+    public ArrayList<Song> loadPlayList(String recipeName) {
 
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
+        ArrayList<Song> ingredients = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
 
@@ -60,17 +62,16 @@ public class SpotifyFileHandler {
                     String[] parts = line.split(",");
 
                     String name = parts[0];
-                    double amount = Double.parseDouble(parts[1]);
-                    Unit unit = Unit.valueOf(parts[2]);
-                    Category category = Category.valueOf(parts[3]);
+                    Genre genre = Genre.valueOf(parts[1]);
+                    String artist = String.valueOf(parts[2]);
 
-                    Ingredient ingredient;
+                    Song ingredient;
 
                     // Polymorphic instantiation
-                    if (category == Category.SOLID) {
-                        ingredient = new SolidIngredient(name, amount, unit);
+                    if (genre == Genre.ROCK) {
+                        ingredient = new Song(name, genre, artist);
                     } else {
-                        ingredient = new LiquidIngredient(name, amount, unit);
+                        ingredient = new Song(name, genre, artist);
                     }
 
                     ingredients.add(ingredient);
@@ -84,15 +85,15 @@ public class SpotifyFileHandler {
         return ingredients;
     }
 
-    public void writeShoppingList(ArrayList<Ingredient> ingredients) {
+    public void writePlayList(ArrayList<Song> ingredients) {
 
         try (BufferedWriter writer =
-                     new BufferedWriter(new FileWriter("shopping_list.txt"))) {
+                     new BufferedWriter(new FileWriter("PlayList.txt"))) {
 
-            for (Ingredient ingredient : ingredients) {
+            for (Song ingredient : ingredients) {
 
                 // Polymorphism in action
-                writer.write(ingredient.formatForShoppingList());
+                writer.write(ingredient.formatForPlayList());
                 writer.newLine();
             }
 

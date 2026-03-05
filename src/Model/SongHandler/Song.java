@@ -35,6 +35,16 @@ public class Song {
     public void setArtist(String artist) {
         this.artist = artist;
     }
+
+    public String formatForPlayList() {
+
+        // Example of behavior specific to liquids
+        /*if (getUnit() == Unit.ML && getAmount() >= 1000) {
+            return getName() + " - " + (getAmount() / 1000) + " L";
+        }*/
+
+        return getTitle() + " - " + getGenre() + " " + getArtist();
+    }
         @Override
                 public String toString(){
             return title + " - " + artist + " (" + genre + ")";
